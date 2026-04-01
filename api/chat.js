@@ -17,7 +17,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Invalid request body." });
   }
 
-  const MODEL = "gemini-2.0-flash";
+  const MODEL = "gemini-2.5-flash";
   const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${apiKey}`;
 
   let lastError;
