@@ -19,7 +19,7 @@ const GLOBAL_CSS = `
   @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Nunito:wght@300;400;600;700;800&family=Noto+Sans+JP:wght@400;700&display=swap');
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { height: 100%; overflow: hidden; }
+  html, body { width: 100%; height: 100%; overflow: hidden; }
   body { background: #050010; font-family: 'Nunito', sans-serif; }
 
   :root {
@@ -72,6 +72,16 @@ const GLOBAL_CSS = `
   .about-btn { transition: all .18s ease; }
   .about-btn:hover { background: rgba(255,34,68,.14) !important; border-color: #ff2244 !important; color: #ff2244 !important; }
   .modal-wrap { animation: modal-in .32s cubic-bezier(.34,1.4,.64,1) both; }
+  
+  @media (max-width: 600px) {
+    html, body { width: 100%; height: 100%; overflow: hidden; }
+    header { padding: 8px 12px !important; }
+    .chat-messages { padding: 16px 12px 8px !important; }
+    .input-section { padding: 6px 12px 10px !important; }
+    .input-wrap { padding: 8px 8px 8px 14px !important; gap: 8px !important; }
+    textarea { max-height: 100px !important; }
+    .input-hint { margin-top: 4px !important; font-size: 9px !important; }
+  }
 `;
 
 // ─── Dark Petal ───────────────────────────────────────────────────────────────
@@ -478,7 +488,7 @@ export default function AmyChat() {
       {about  && <AboutModal   onClose={() => setAbout(false)} />}
 
       <div style={{
-        width: "100vw", height: "100vh",
+        width: "100vw", height: "100dvh",
         display: "flex", flexDirection: "column",
         background: "radial-gradient(ellipse at 20% 15%, #180030 0%, #050010 55%, #090016 100%)",
         position: "relative", overflow: "hidden",
@@ -501,6 +511,7 @@ export default function AmyChat() {
           backdropFilter: "blur(18px)", borderBottom: "1px solid rgba(155,48,255,.16)",
           display: "flex", alignItems: "center", gap: "12px",
           boxShadow: "0 4px 40px rgba(155,48,255,.07)",
+          flexShrink: 0,
         }}>
           <AmyLogo size={52} spin={true} pulse={true} />
           <div>
@@ -535,7 +546,7 @@ export default function AmyChat() {
         </header>
 
         {/* ══ MESSAGES ══ */}
-        <div ref={chatRef} style={{
+        <div ref={chatRef} className="chat-messages" style={{
           flex: 1, overflowY: "auto", overflowX: "hidden",
           padding: "20px 16px 8px",
           position: "relative", zIndex: 5,
@@ -547,10 +558,11 @@ export default function AmyChat() {
         </div>
 
         {/* ══ INPUT ══ */}
-        <div style={{
-          position: "relative", zIndex: 10, padding: "10px 14px 14px",
+        <div className="input-section" style={{
+          position: "relative", zIndex: 10, padding: "8px 14px 12px",
           background: "linear-gradient(0deg, rgba(8,0,20,.98) 0%, rgba(8,0,20,0) 100%)",
           backdropFilter: "blur(20px)", borderTop: "1px solid rgba(155,48,255,.09)",
+          flexShrink: 0,
         }}>
           <div className="input-wrap" style={{
             display: "flex", alignItems: "flex-end", gap: "10px",
@@ -586,7 +598,7 @@ export default function AmyChat() {
               </svg>
             </button>
           </div>
-          <p style={{ textAlign: "center", marginTop: "7px", color: "#9b30ff22", fontSize: "10px", letterSpacing: ".8px" }}>
+          <p className="input-hint" style={{ textAlign: "center", marginTop: "7px", color: "#9b30ff22", fontSize: "10px", letterSpacing: ".8px" }}>
             Enter to send · Shift+Enter for new line
           </p>
         </div>
